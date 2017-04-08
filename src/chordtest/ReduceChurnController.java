@@ -19,7 +19,7 @@ import utility.PropertyLoad;
 public class ReduceChurnController implements Runnable {
     public long expiretime;
     ReduceChurnController(){
-    this.expiretime=PropertyLoad.getInteger("mapexprietime");
+    this.expiretime=PropertyLoad.getInteger("reduceexprietime");
     }
 
     @Override

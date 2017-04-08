@@ -24,6 +24,11 @@ public class MainClass {
         System.out.println("Mapre");
         Chordtest chordtest=new Chordtest();
         chordtest.masterdaemon();
+        Thread mapchurncontroller=new Thread(new MapChurnController());
+        mapchurncontroller.start();
+        Thread reducechurncontroller =new Thread(new ReduceChurnController());
+        reducechurncontroller.start();
+        
         
         /*
         Chordtest ch=new Chordtest();
