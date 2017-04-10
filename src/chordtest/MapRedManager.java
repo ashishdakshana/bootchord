@@ -85,7 +85,7 @@ public class MapRedManager implements Runnable {
 
     public static boolean addred(Reduce reduce) {
         //Add reduce task in Queue in scheduler
-        try {
+        try {System.out.println("Adding Reduceres "+ reduce.appid+" "+reduce.redkey);
             redsem.acquire();
             reduceQue.add(reduce);
 
@@ -102,7 +102,9 @@ public class MapRedManager implements Runnable {
         //Add map in disset when map task is sent to peer for execution
         try {
             dismapsem.acquire();
+            
             dismapSet.put(map.appid + map.mapno + "map", map);
+            System.out.println("Inserted in dismapset : "+map.appid + map.mapno + "map");
 
             return true;
         } catch (Exception e) {
@@ -118,6 +120,7 @@ public class MapRedManager implements Runnable {
         //Add map in disset when map task is sent to peer for execution
         try {
             dismapsem.acquire();
+            System.out.println("Removing mapdisset"+mapid);
             dismapSet.remove(mapid);
             System.out.println(mapid);
             return true;
@@ -134,6 +137,7 @@ public class MapRedManager implements Runnable {
 
         try {
             disredsem.acquire();
+            System.out.println("Adding disredset: "+red.appid + red.redkey + "red");
             disreduceSet.put(red.appid + red.redkey + "red", red);
             return true;
         } catch (Exception e) {
@@ -149,6 +153,7 @@ public class MapRedManager implements Runnable {
         //Add map in disset when map task is sent to peer for execution
         try {
             disredsem.acquire();
+            System.out.println("Removing disredset : "+redid);
             disreduceSet.remove(redid);
             System.out.println(redid);
             return true;
@@ -281,15 +286,15 @@ public class MapRedManager implements Runnable {
             tasksem.acquire();
             Task t = tasklist.get(redres.appid);
             t.cred = t.cred + 1;
-
+            boolean iscom=false;
            // (t.mapkeys).addAll(mapr.keyset);
             remdisredset(redres.appid + redres.redkey + "red");
             if (t.tred == t.cred) {
                 t.redstat = true;
+                iscom=true;
                 t.status="Completed";
                 System.out.println(t.appid + "completed");
-                File resfile=new File(redres.appid+"Results");
-                RingDownloder.downloadFile(resfile.getAbsolutePath(),redres.appid+"_results");
+                
                         
                 
                 
@@ -298,6 +303,12 @@ public class MapRedManager implements Runnable {
             }
             tasklist.put(t.appid, t);
             tasksem.release();
+            if(iscom==true)
+            {
+               // File resfile=new File(redres.appid+"Results");
+               // RingDownloder.downloadFile(resfile.getAbsolutePath(),redres.appid+"_results");
+                RingDownloder.downresults(t.appid);
+            }
            
 
         } catch (Exception e) {

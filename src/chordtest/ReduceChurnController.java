@@ -20,17 +20,18 @@ public class ReduceChurnController implements Runnable {
     public long expiretime;
     ReduceChurnController(){
     this.expiretime=PropertyLoad.getInteger("reduceexprietime");
+        System.out.println("Reduce expire timeout : "+this.expiretime);
     }
 
     @Override
     public void run() {
-        try {
+        try {System.out.println("Running reducechurncontroller");
             MapRedManager.disredsem.acquire();
             Map m = MapRedManager.disreduceSet;
             
             List<Reduce> explist=new ArrayList<Reduce>();
-            for (Object entry : m.entrySet()) {
-                Reduce p=(Reduce)entry;
+            for (Object entry : m.keySet()) {
+                Reduce p=(Reduce)m.get(entry);
                 if(System.currentTimeMillis()-p.starttime >expiretime )
                 {
                     //shows map task is expired;
@@ -49,7 +50,7 @@ public class ReduceChurnController implements Runnable {
             run();
 
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
     }

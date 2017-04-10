@@ -21,13 +21,14 @@ public class MainClass {
         
         Thread th=new Thread(mrmap);
         th.start();
+        
         System.out.println("Mapre");
-        Chordtest chordtest=new Chordtest();
-        chordtest.masterdaemon();
+        Thread masterthread=new Thread(new Chordtest());
+        masterthread.start();
         Thread mapchurncontroller=new Thread(new MapChurnController());
-        mapchurncontroller.start();
+        //mapchurncontroller.start();
         Thread reducechurncontroller =new Thread(new ReduceChurnController());
-        reducechurncontroller.start();
+       // reducechurncontroller.start();
         
         
         /*

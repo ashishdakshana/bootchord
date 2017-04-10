@@ -9,6 +9,7 @@ import datastructures.Maps;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import utility.PropertyLoad;
 
 /**
@@ -19,17 +20,20 @@ public class MapChurnController implements Runnable {
     public long expiretime;
     MapChurnController(){
     this.expiretime=PropertyLoad.getInteger("mapexprietime");
+        System.out.println("Map Expire time : "+ this.expiretime);
     }
 
     @Override
     public void run() {
-        try {
+        try {System.out.println("Running mapchurncontroller");
+            
             MapRedManager.dismapsem.acquire();
             Map m = MapRedManager.dismapSet;
             
             List<Maps> explist=new ArrayList<Maps>();
-            for (Object entry : m.entrySet()) {
-                Maps p=(Maps)entry;
+            
+            for (Object entry : m.keySet()) {
+                Maps p=(Maps)(m.get(entry));
                 if(System.currentTimeMillis()-p.starttime >expiretime )
                 {
                     //shows map task is expired;

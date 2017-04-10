@@ -13,6 +13,7 @@ import de.uniba.wiai.lspi.chord.console.command.entry.Value;
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ import java.util.Set;
  */
 public class RingDownloder {
     
-    
+    /*
     public static List<File> downloadFile(String appid,String filename)
     {
         System.out.println("Downloading File " + filename);
@@ -32,15 +33,13 @@ public class RingDownloder {
        try{
        Set<Serializable> vs=chordtest.Chordtest.chord.retrieve(new Key(filename));
        
-        File dir=new File(appid);
+        File dir=new File("mapredresults"+File.separatorChar+appid);
            if(!dir.exists())
                dir.mkdirs();
         String dirpath=dir.getAbsolutePath();
            System.out.println("sizeof res"+vs.size());
        Iterator<Serializable> it=vs.iterator();
-       FileOutputStream fs=new FileOutputStream(dirpath+File.separatorChar+filename);
-           filelist.add(new File(dirpath+File.separatorChar+filename));
-       BufferedOutputStream bos=new BufferedOutputStream(fs);
+       
        
        while(it.hasNext())
        {  RingFile rs=(RingFile)it.next();
@@ -65,12 +64,12 @@ public class RingDownloder {
        }
        catch(Exception e)
        {
-           
+           System.out.println(e);
        }
        
        return filelist;
         
-    }
+    }*/
     
     
     public static File downredFile(String appid,String redkey) throws Exception
@@ -90,5 +89,33 @@ public class RingDownloder {
        fs.close();
        
        return new File(dirpath+File.separatorChar+redkey);           
+    }
+
+    public static void downresults(String appid) {
+       try{
+        Set<Serializable> vs=chordtest.Chordtest.chord.retrieve(new Key(appid+"_results"));
+       
+        File dir=new File("mapredresults"+File.separatorChar+appid);
+           if(!dir.exists())
+               dir.mkdirs();
+        
+           System.out.println("sizeof res"+vs.size());
+        Iterator<Serializable> it=vs.iterator();
+        PrintWriter ps=new PrintWriter(dir.getAbsolutePath()+File.separatorChar+appid+"_results");
+        
+       while(it.hasNext())
+       {  RingFile rs=(RingFile)it.next();
+          byte arr[]=rs.filebytes;
+          ps.println(new String(arr));
+           
+           
+       }
+       ps.close();
+    }
+    
+    catch(Exception e)
+    {
+        e.printStackTrace();
+    }
     }
 }

@@ -17,6 +17,7 @@ import static java.lang.Thread.sleep;
 import java.net.ServerSocket;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import utility.PropertyLoad;
 
@@ -25,7 +26,7 @@ import utility.PropertyLoad;
  *
  * @author Ashish
  */
-public class Chordtest {
+public class Chordtest implements Runnable {
 
     public URL bootsurl = null;
     public static Chord chord = null;
@@ -67,9 +68,20 @@ public class Chordtest {
         Thread rhanth=new Thread(rhan);
         rhanth.start();
         //log.info("Listening client for Task on : "+ sersock.toString());
+        
+
+    }
+
+    @Override
+    public void run() {
+        try {
+            masterdaemon();
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(Chordtest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         while (true) {
         }
-
+        
     }
 
 }
