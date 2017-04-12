@@ -19,15 +19,20 @@ public class MainClass {
     {   cleanup();
         MapRedManager mrmap=new MapRedManager();  
         Thread th=new Thread(mrmap);
+        th.setName("MapRedmanager ");
         th.start();
         
         Thread masterthread=new Thread(new Chordtest());
+        masterthread.setName("MasterThread");
         masterthread.start();
         
+        
         Thread mapchurncontroller=new Thread(new MapChurnController());
-        //mapchurncontroller.start();
+        mapchurncontroller.setName("mapchurncontroller");
+        mapchurncontroller.start();
         Thread reducechurncontroller =new Thread(new ReduceChurnController());
-       // reducechurncontroller.start();
+        reducechurncontroller.setName("reducechurncontroller");
+        reducechurncontroller.start();
         
         
         /*

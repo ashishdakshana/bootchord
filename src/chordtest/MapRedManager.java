@@ -101,7 +101,7 @@ import utility.RingDownloder;
         //Add map in disset when map task is sent to peer for execution
         try {
             dismapsem.acquire();
-            
+            map.starttime=System.currentTimeMillis();
             dismapSet.put(map.appid + map.mapno + "map", map);
             System.out.println("Inserted in dismapset : "+map.appid + map.mapno + "map");
 
@@ -136,6 +136,7 @@ import utility.RingDownloder;
 
         try {
             disredsem.acquire();
+            red.starttime=System.currentTimeMillis();
             System.out.println("Adding disredset: "+red.appid + red.redkey + "red");
             disreduceSet.put(red.appid + red.redkey + "red", red);
             return true;

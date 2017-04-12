@@ -41,7 +41,7 @@ public class TaskHandler implements Runnable{
     public void run() {
         
         try{
-         System.out.println("Client Connected for Task Token: " + ctsock.toString());
+        // System.out.println("Client Connected for Task Token: " + ctsock.toString());
                 if (!MapRedManager.isredQueEmpty()) {       //Check for Left Reduce Task
                     
                     Reduce rtask = reduceQuefront();
@@ -54,6 +54,7 @@ public class TaskHandler implements Runnable{
 
                 } else if (!MapRedManager.ismapQueEmpty()) {   //check for left Maps Task 
                     Maps mtask = MapRedManager.mapQuefront();
+                    //mtask.starttime=System.currentTimeMillis();
                     //mtask.ctsock=ctsock;
                     MapRedManager.adddismapset(mtask);
                     MapRedManager.removemapQue();

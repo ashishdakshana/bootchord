@@ -53,7 +53,7 @@ public class FileBreaker {
             for (i = 0; line != null; i++) {
                 writer = new PrintWriter(new FileWriter(inputfilename +  i ));
 		File file1 =new File(inputfilename + i );                
-		for (;file1.length()<128000000&&line!=null;) {
+		for (;file1.length()<128000000/12&&line!=null;) {
 			//System.out.println(file1.length());
                   
                     writer.println(line);

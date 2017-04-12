@@ -25,6 +25,7 @@ public class ReduceChurnController implements Runnable {
 
     @Override
     public void run() {
+        while(true){
         try {System.out.println("Running reducechurncontroller");
             MapRedManager.disredsem.acquire();
             Map m = MapRedManager.disreduceSet;
@@ -44,15 +45,15 @@ public class ReduceChurnController implements Runnable {
             }
             MapRedManager.disredsem.release();
             for(Reduce r:explist){
-            MapRedManager.addred(r);}
+            MapRedManager.addred(new Reduce(r.appid, r.redkey, false));}
             
             Thread.sleep(expiretime);
-            run();
+           
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
     }
 
 }

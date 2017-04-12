@@ -27,7 +27,7 @@ public class Maps extends TaskToken implements java.io.Serializable{
         this.appid=appid;
         this.mapno=mapno;
         this.status=false;
-        this.starttime=System.currentTimeMillis();
+       
     }
     
     

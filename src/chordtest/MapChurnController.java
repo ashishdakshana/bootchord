@@ -25,6 +25,7 @@ public class MapChurnController implements Runnable {
 
     @Override
     public void run() {
+        while(true){
         try {System.out.println("Running mapchurncontroller");
             
             MapRedManager.dismapsem.acquire();
@@ -47,12 +48,12 @@ public class MapChurnController implements Runnable {
             MapRedManager.dismapsem.release();
             MapRedManager.addmap(explist);
             Thread.sleep(expiretime);
-            run();
+            
 
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        }
     }
 
 }
