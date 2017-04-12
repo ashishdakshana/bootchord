@@ -42,9 +42,10 @@ public class Maps extends TaskToken implements java.io.Serializable{
     public boolean isStatus() {
         return status;
     }
+    @Override
    public String toString()
     {
-      return ("Appid = "+this.appid+" MapNo="+this.mapno);  
+      return new String("Appid = "+this.appid+" MapNo="+this.mapno);  
     }
     
 }

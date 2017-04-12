@@ -18,7 +18,7 @@ public class Reduce extends TaskToken implements java.io.Serializable {
      public String appid;
     public String redkey;
     public boolean status;
-     public long starttime;
+    public long starttime;
 
     public Reduce(String appid, String redkey, boolean status) {
         this.appid = appid;
@@ -40,7 +40,7 @@ public class Reduce extends TaskToken implements java.io.Serializable {
     }
     public String toString()
     {
-      return ("Appid = "+this.appid+" RedKey="+this.redkey);  
+      return new String("Appid = "+this.appid+" RedKey="+this.redkey);  
     }
     
     
