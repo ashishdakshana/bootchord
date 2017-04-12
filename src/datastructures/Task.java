@@ -28,8 +28,9 @@ public class Task {
     public  List<Maps> maplist;
     public  Set<String>mapkeys;
     public int inputpos;
+    public String email;
     
-    public Task(String appid,int tmap,List<Maps> maplist)
+    public Task(String appid,int tmap,List<Maps> maplist,String email)
     {
         this.appid=appid;
         this.maplist=maplist;
@@ -40,6 +41,7 @@ public class Task {
         redstat=false;
         cred=0;
         mapkeys=new HashSet<String>();
+        this.email=email;
         
         
     }

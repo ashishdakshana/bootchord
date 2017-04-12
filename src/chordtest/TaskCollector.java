@@ -44,6 +44,7 @@ public class TaskCollector implements Runnable {
     public String host;
     public String status;
     public Socket clientsocket;
+    public String email;
     public static Logger log=Logger.getLogger(TaskCollector.class.getName());
     TaskCollector()
     {
@@ -100,6 +101,7 @@ public class TaskCollector implements Runnable {
 
         int filesCount = 2; //two files input and jar files;
         File[] files = new File[filesCount];
+        email=dis.readUTF();
         long fileLength=0;long inputFileLength=0;
         for(int i = 0; i < filesCount; i++)
         {
@@ -155,7 +157,7 @@ public class TaskCollector implements Runnable {
 
     
     
-    public boolean inittask(String appid,int nochunk)
+    public boolean inittask(String appid,int nochunk,String email)
     {
         
         
@@ -170,7 +172,7 @@ public class TaskCollector implements Runnable {
             System.out.println("Adding Map to Scheduler "+ tmap.appid+"_"+tmap.mapno );
         }
         
-        Task task=new Task(appid,nochunk,tlist);
+        Task task=new Task(appid,nochunk,tlist,email);
         MapRedManager.addtask(task);
         System.out.println("Task Added to Manager");
         MapRedManager.addmap(tlist);
@@ -191,7 +193,7 @@ public class TaskCollector implements Runnable {
             
             System.out.println("Task Data Collected");
             
-            inittask(appid,(int)nochunk);
+            inittask(appid,(int)nochunk,email);
             
         } catch (Exception ex) {
             Logger.getLogger(TaskCollector.class.getName()).log(Level.SEVERE, null, ex);

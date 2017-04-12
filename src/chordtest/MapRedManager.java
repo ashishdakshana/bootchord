@@ -38,8 +38,7 @@ import utility.RingDownloder;
  * consist of Queue and Semaphore to control concurrent execution.
  *
  */
-public class MapRedManager implements Runnable {
-
+    public class MapRedManager implements Runnable {
     public static Map<String, Task> tasklist = new ConcurrentHashMap<String, Task>();
     public static Queue<Maps> mapQue = new LinkedList<Maps>();
     public static Queue<Reduce> reduceQue = new LinkedList<Reduce>();

@@ -18,13 +18,12 @@ public class MainClass {
     public static void main(String[] args) throws Exception
     {   cleanup();
         MapRedManager mrmap=new MapRedManager();  
-        
         Thread th=new Thread(mrmap);
         th.start();
         
-        System.out.println("Mapre");
         Thread masterthread=new Thread(new Chordtest());
         masterthread.start();
+        
         Thread mapchurncontroller=new Thread(new MapChurnController());
         //mapchurncontroller.start();
         Thread reducechurncontroller =new Thread(new ReduceChurnController());
